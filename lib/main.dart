@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './ui/MyTodoList';
+import './ui/MyTodoList.dart';
+import './ui/Addform.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       ),
       routes:{
        "/" : (context) => MyTodoList(),
+       "seceond" : (context) => MycustomForm(),
         },
     );
   }
