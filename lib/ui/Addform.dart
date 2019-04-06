@@ -1,51 +1,48 @@
 import 'package:flutter/material.dart';
-class MycustomForm extends StatefulWidget {
+class Addform extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyCustomFormState();
+    return AddformState();
   }
 }
 
-class MyCustomFormState extends State<MycustomForm> {
-  TextEditingController eCtrl = TextEditingController();
-  final List<String> _text = [];
+class AddformState extends State<Addform> {
+  TextEditingController ectrl = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add"),
+        title: Text("New Subject"),
       ),
-      body: Column(
-        children: <Widget>[
-          TextFormField(
-            controller: eCtrl,
-            decoration: InputDecoration(
-              hintText: "Input"
-            ),
-          ),
-          RaisedButton(
-            color: Colors.pink,
-            child: Text("data"), 
-            onPressed: () {
-              _text.add(eCtrl.text);
-              eCtrl.clear();
-            },
-          ),
-          Flexible(
-            child: new ListView.builder(
-              itemCount: _text.length,
-              itemBuilder: (BuildContext context, int index){
-                return Column(
-                  children: <Widget>[
-                    new Text(_text[index])
-                  ],
-                );
+      body: Form(
+        key: _formkey,
+        child: ListView(
+          children: <Widget>[
+            TextFormField(
+              controller: ectrl,
+              decoration: InputDecoration(
+                labelText: "Subject",
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "please fill subject";
+                }
               },
             ),
-          )
-        ],
+            RaisedButton(
+              child: Text("Save"),
+              onPressed: () {
+                _formkey.currentState.validate();
+                // String txt = ectrl.text;
+                // if(txt.isEmpty){
+
+                // }
+              },
+            )
+          ],
+        ),
       ),
- 
     );
   }
 }

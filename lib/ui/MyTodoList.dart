@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './Addform.dart';
+import './Task.dart';
+import './Completed.dart';
 class MyTodoList extends StatefulWidget{
   @override
   TodoListState createState() {
@@ -10,49 +12,18 @@ class MyTodoList extends StatefulWidget{
 class TodoListState extends State<MyTodoList> {
   int _currentIndex = 0;
   TextEditingController text = TextEditingController();
-  // final List<Widget> _home = [
-  //   Text("No data found.",style: TextStyle(fontSize: 20)),
-  //   Text("Notify",style: TextStyle(fontSize: 20)),
-  // ];
+  final List<Widget> _home = [
+    Task(),Completed()
+  ];
     bool showDialog = false;
-    // final List1<String> _text = [];
+    // final List<String> _text = [];
     // bool  List2<bool> _check = [];
 
   @override
   Widget build(BuildContext context){
       return Scaffold(
-        appBar: AppBar(
-          title: Text("Todo"),
-          actions: <Widget>[
-            new IconButton(
-              icon: new Icon(Icons.add_comment),
-              onPressed: (){
-                setState(() {
-                  showDialog = true;
-                if(showDialog == true){
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => MycustomForm()));
-                }
-                });
-              }
-            ),
-          ],
-        ),
-        body:Column(
-          children: <Widget>[
-            new ListView(
-              children: <Widget>[
-                Text("data"),
-                Text("data"),
-                Text("data"),
-                Text("data"),
-                Text("data"),
-                Text("data"),
-                Text("data"),
-                Text("data"),
-                Text("data"),
-              ],
-            ),
-          ],      
+        body:Center(
+          child: _home[_currentIndex]
         ),
         bottomNavigationBar:new Theme(
             data: Theme.of(context).copyWith(
