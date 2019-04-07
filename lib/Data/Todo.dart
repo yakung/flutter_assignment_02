@@ -15,7 +15,6 @@ class Todo{
 
   Todo({String title}){
     this.title = title;
-    this.done = false;
   }
 
   Map<String, dynamic> toMap(){

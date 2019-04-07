@@ -11,21 +11,21 @@ class Task extends StatefulWidget {
 
 class TaskState extends State<Task> {
   TodoProvider todo = TodoProvider();
-  List<Todo> tasklist = List<Todo>();
+  List<Todo> tasklist = List();
   bool showDialog  = false;
 
   @override
   void initState() {
     super.initState();
-    todo.open().then((r) {
-      task();
+    todo.open().then((d) {
+      alltask();
     });
   }
 
-  void task() {
-    todo.task().then((r) {
+  void alltask() {
+    todo.task().then((d) {
       setState(() {
-        tasklist = r;
+        tasklist = d;
       });
     });
   }
@@ -40,10 +40,7 @@ class TaskState extends State<Task> {
               icon: new Icon(Icons.add_comment),
               onPressed: (){
                 setState(() {
-                  showDialog = true;
-                if(showDialog == true){
                   Navigator.push(context,MaterialPageRoute(builder: (context) => Addform()));
-                }
                 });
               }
             ),
@@ -54,12 +51,13 @@ class TaskState extends State<Task> {
         :ListView(
           children: tasklist.map((item){
               return CheckboxListTile(
+                title: Text(item.title),
                 value: item.done, 
                 onChanged: (bool value) {
                   setState(() {
                   item.done = value;
                   todo.update(item);
-                  task(); 
+                  alltask(); 
                   });
                 },
               );

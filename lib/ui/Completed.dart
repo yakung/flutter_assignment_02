@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Data/Todo.dart';
 class Completed extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -8,8 +9,26 @@ class Completed extends StatefulWidget {
 
 class CompletedState extends State<Completed> {
   TextEditingController eCtrl = TextEditingController();
-  final List<String> _text = [];
+  TodoProvider todo = TodoProvider();
+  List<Todo> completedlist = List();
   bool showDialog = false;
+
+  @override
+  void initState() {
+    super.initState();
+    todo.open().then((d) {
+      alltask();
+    });
+  }
+
+  void alltask() {
+    todo.completed().then((d) {
+      setState(() {
+        completedlist = d;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,17 +39,31 @@ class CompletedState extends State<Completed> {
               icon: new Icon(Icons.delete_forever),
               onPressed: (){
                 setState(() {
-                  showDialog = true;
-                if(showDialog == true){
-                  
-                }
+                  todo.deleteall();
+                  alltask();
                 });
               }
             ),
           ],
         ),
       body: Center(
-        child:Text("No data kub"),
+        child: completedlist.length == 0 ? Text("data not found")
+        :ListView(
+          children: completedlist.map((item){
+              return CheckboxListTile(
+                title: Text(item.title),
+                value: item.done, 
+                onChanged: (bool value) {
+                  setState(() {
+                  item.done = value;
+                  todo.update(item);
+                  alltask(); 
+                  });
+                },
+              );
+            }).toList(),
+        ),
+  
       ),
  
     );

@@ -45,9 +45,9 @@ class AddformState extends State<Addform> {
                   if(txtctrl.text.length > 0){
                     await todo.open();
                     Todo data = Todo(title: txtctrl.text);
-                    todo.insert(data);
-                    print("completed");
-                    Navigator.pop(context);
+                    todo.insert(data).then((d){
+                      Navigator.pushNamed(context, "/");
+                    });
                   }
                 },
               ),
