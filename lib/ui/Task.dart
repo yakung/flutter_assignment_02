@@ -12,7 +12,6 @@ class Task extends StatefulWidget {
 class TaskState extends State<Task> {
   TodoProvider todo = TodoProvider();
   List<Todo> tasklist = List();
-  bool showDialog  = false;
 
   @override
   void initState() {
@@ -47,7 +46,7 @@ class TaskState extends State<Task> {
           ],
         ),
       body: Center(
-        child: tasklist.length == 0 ? Text("data not found")
+        child: tasklist.length == 0 ? Text("data not found..")
         :ListView(
           children: tasklist.map((item){
               return CheckboxListTile(

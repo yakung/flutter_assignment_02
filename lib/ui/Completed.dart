@@ -47,7 +47,7 @@ class CompletedState extends State<Completed> {
           ],
         ),
       body: Center(
-        child: completedlist.length == 0 ? Text("data not found")
+        child: completedlist.length == 0 ? Text("data not found..")
         :ListView(
           children: completedlist.map((item){
               return CheckboxListTile(

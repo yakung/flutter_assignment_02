@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './Addform.dart';
 import './Task.dart';
 import './Completed.dart';
 class MyTodoList extends StatefulWidget{
@@ -30,12 +29,12 @@ class TodoListState extends State<MyTodoList> {
           currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.view_compact),
+              icon: Icon(Icons.view_list),
               title: Text("Task"),
               
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
+              icon: Icon(Icons.playlist_add_check),
               title: Text("Completed")
             ),
           ],
