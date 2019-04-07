@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../Data/Todo.dart';
+
 class Addform extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -7,8 +9,9 @@ class Addform extends StatefulWidget {
 }
 
 class AddformState extends State<Addform> {
-  TextEditingController ectrl = TextEditingController();
+  TextEditingController txtctrl = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  TodoProvider todo = TodoProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,26 +22,35 @@ class AddformState extends State<Addform> {
         key: _formkey,
         child: ListView(
           children: <Widget>[
-            TextFormField(
-              controller: ectrl,
-              decoration: InputDecoration(
-                labelText: "Subject",
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: txtctrl,
+                decoration: InputDecoration(
+                  labelText: "Subject",
+                ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Please fill subject";
+                  }
+                },
               ),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return "please fill subject";
-                }
-              },
             ),
-            RaisedButton(
-              child: Text("Save"),
-              onPressed: () {
-                _formkey.currentState.validate();
-                // String txt = ectrl.text;
-                // if(txt.isEmpty){
-
-                // }
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                child: Text("Save"),
+                onPressed: () async {
+                  _formkey.currentState.validate();
+                  if(txtctrl.text.length > 0){
+                    await todo.open();
+                    Todo data = Todo(title: txtctrl.text);
+                    todo.insert(data);
+                    print("completed");
+                    Navigator.pop(context);
+                  }
+                },
+              ),
             )
           ],
         ),

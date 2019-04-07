@@ -11,13 +11,10 @@ class MyTodoList extends StatefulWidget{
 
 class TodoListState extends State<MyTodoList> {
   int _currentIndex = 0;
-  TextEditingController text = TextEditingController();
   final List<Widget> _home = [
     Task(),Completed()
   ];
     bool showDialog = false;
-    // final List<String> _text = [];
-    // bool  List2<bool> _check = [];
 
   @override
   Widget build(BuildContext context){

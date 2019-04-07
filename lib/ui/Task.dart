@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './Addform.dart';
+import '../Data/Todo.dart';
+
 class Task extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -8,9 +10,26 @@ class Task extends StatefulWidget {
 }
 
 class TaskState extends State<Task> {
-  TextEditingController eCtrl = TextEditingController();
-  final List<String> _text = [];
+  TodoProvider todo = TodoProvider();
+  List<Todo> tasklist = List<Todo>();
   bool showDialog  = false;
+
+  @override
+  void initState() {
+    super.initState();
+    todo.open().then((r) {
+      task();
+    });
+  }
+
+  void task() {
+    todo.task().then((r) {
+      setState(() {
+        tasklist = r;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +50,22 @@ class TaskState extends State<Task> {
           ],
         ),
       body: Center(
-        child:Text("No data"),
+        child: tasklist.length == 0 ? Text("data not found")
+        :ListView(
+          children: tasklist.map((item){
+              return CheckboxListTile(
+                value: item.done, 
+                onChanged: (bool value) {
+                  setState(() {
+                  item.done = value;
+                  todo.update(item);
+                  task(); 
+                  });
+                },
+              );
+            }).toList(),
+        ),
+  
       ),
  
     );
