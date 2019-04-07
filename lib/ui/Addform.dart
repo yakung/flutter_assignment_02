@@ -23,11 +23,13 @@ class AddformState extends State<Addform> {
         child: ListView(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top:10.0,right: 10.0,left: 10.0,bottom: 0),
               child: TextFormField(
                 controller: txtctrl,
+                style: TextStyle(fontSize: 20),
                 decoration: InputDecoration(
                   labelText: "Subject",
+                  
                 ),
                 validator: (value) {
                   if (value.isEmpty) {
@@ -37,9 +39,9 @@ class AddformState extends State<Addform> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top:2.0,right: 10.0,left: 10.0),
               child: RaisedButton(
-                child: Text("Save"),
+                child: Text("Save",style: TextStyle(fontSize: 15),),
                 onPressed: () async {
                   _formkey.currentState.validate();
                   if(txtctrl.text.length > 0){

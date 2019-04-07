@@ -12,7 +12,6 @@ class Task extends StatefulWidget {
 class TaskState extends State<Task> {
   TodoProvider todo = TodoProvider();
   List<Todo> tasklist = List();
-
   @override
   void initState() {
     super.initState();
@@ -33,10 +32,11 @@ class TaskState extends State<Task> {
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
+         automaticallyImplyLeading: false,
           title: Text("Todo"),
           actions: <Widget>[
             new IconButton(
-              icon: new Icon(Icons.add_comment),
+              icon: new Icon(Icons.add),
               onPressed: (){
                 setState(() {
                   Navigator.push(context,MaterialPageRoute(builder: (context) => Addform()));
@@ -46,19 +46,28 @@ class TaskState extends State<Task> {
           ],
         ),
       body: Center(
-        child: tasklist.length == 0 ? Text("data not found..")
+        child: tasklist.length == 0 ? Text("No data found..",style: TextStyle(fontSize: 15),)
         :ListView(
           children: tasklist.map((item){
-              return CheckboxListTile(
-                title: Text(item.title),
-                value: item.done, 
-                onChanged: (bool value) {
-                  setState(() {
-                  item.done = value;
-                  todo.update(item);
-                  alltask(); 
-                  });
-                },
+              return Container(
+                decoration: new BoxDecoration(
+                  border:Border(
+                    top: BorderSide(
+                    color: Colors.black,
+                    width: 0.5
+                  ))
+                ),
+                child: CheckboxListTile(
+                  title: Text(item.title),
+                  value: item.done,
+                  onChanged: (bool value) {
+                    setState(() {
+                    item.done = value;
+                    todo.update(item);
+                    alltask(); 
+                    });
+                  },
+                ),
               );
             }).toList(),
         ),

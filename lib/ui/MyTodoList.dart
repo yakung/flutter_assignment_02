@@ -29,12 +29,12 @@ class TodoListState extends State<MyTodoList> {
           currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.view_list),
+              icon: Icon(Icons.list),
               title: Text("Task"),
               
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.playlist_add_check),
+              icon: Icon(Icons.done_all),
               title: Text("Completed")
             ),
           ],

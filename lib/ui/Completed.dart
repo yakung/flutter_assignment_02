@@ -33,10 +33,11 @@ class CompletedState extends State<Completed> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text("Todo"),
           actions: <Widget>[
             new IconButton(
-              icon: new Icon(Icons.delete_forever),
+              icon: new Icon(Icons.delete),
               onPressed: (){
                 setState(() {
                   todo.deleteall();
@@ -47,19 +48,29 @@ class CompletedState extends State<Completed> {
           ],
         ),
       body: Center(
-        child: completedlist.length == 0 ? Text("data not found..")
+        child: completedlist.length == 0 ? Text("No data found..",style: TextStyle(fontSize: 15),)
         :ListView(
           children: completedlist.map((item){
-              return CheckboxListTile(
-                title: Text(item.title),
-                value: item.done, 
-                onChanged: (bool value) {
-                  setState(() {
-                  item.done = value;
-                  todo.update(item);
-                  alltask(); 
-                  });
-                },
+              return Container(
+                  decoration: new BoxDecoration(
+                  border: completedlist.length == 1 ?  Border(top: BorderSide.none, bottom: BorderSide.none, left: BorderSide.none, right: BorderSide.none)
+                  :Border(
+                    top: BorderSide(
+                    color: Colors.black,
+                    width: 0.5
+                  ))
+                ),
+                child: CheckboxListTile(
+                  title: Text(item.title),
+                  value: item.done, 
+                  onChanged: (bool value) {
+                    setState(() {
+                    item.done = value;
+                    todo.update(item);
+                    alltask(); 
+                    });
+                  },
+                ),
               );
             }).toList(),
         ),
